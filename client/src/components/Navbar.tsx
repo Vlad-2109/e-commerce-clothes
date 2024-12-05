@@ -11,7 +11,9 @@ export const Navbar: React.FC = () => {
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <img src={assets.logo} alt="logo" className="w-36" />
+      <Link to="/">
+        <img src={assets.logo} alt="logo" className="w-36" />
+      </Link>
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
@@ -83,13 +85,25 @@ export const Navbar: React.FC = () => {
           <NavLink onClick={onClickHandler} className="py-2 pl-6 border" to="/">
             HOME
           </NavLink>
-          <NavLink onClick={onClickHandler} className="py-2 pl-6 border" to="/collection">
+          <NavLink
+            onClick={onClickHandler}
+            className="py-2 pl-6 border"
+            to="/collection"
+          >
             COLLECTION
           </NavLink>
-          <NavLink onClick={onClickHandler} className="py-2 pl-6 border" to="/about">
+          <NavLink
+            onClick={onClickHandler}
+            className="py-2 pl-6 border"
+            to="/about"
+          >
             ABOUT
           </NavLink>
-          <NavLink onClick={onClickHandler} className="py-2 pl-6 border" to="/contact">
+          <NavLink
+            onClick={onClickHandler}
+            className="py-2 pl-6 border"
+            to="/contact"
+          >
             CONTACT
           </NavLink>
         </div>
