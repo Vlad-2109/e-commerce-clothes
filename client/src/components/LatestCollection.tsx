@@ -5,7 +5,6 @@ import { Title } from './Title';
 import { ProductItem } from './ProductItem';
 
 export const LatestCollection: React.FC = () => {
-    
   const { products } = useContext(ShopContext) as ShopContextType;
 
   const [latestProducts, setLatestProducts] = useState<IProduct[]>([]);
@@ -19,8 +18,10 @@ export const LatestCollection: React.FC = () => {
       <div className="text-center py-8 text-3xl">
         <Title text1="LATEST" text2="COLLECTION" />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-          natus aspernatur sit ex, quo expedita?
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint
+          voluptatem, quis ex tenetur suscipit magnam consequuntur voluptatum
+          itaque quisquam reprehenderit sed recusandae maiores numquam ad at
+          dolore est porro omnis.
         </p>
       </div>
       {/* Rendering Products*/}
