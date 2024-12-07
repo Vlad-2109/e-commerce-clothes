@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { assets } from '../assets/frontend_assets/assets';
+import { ShopContext } from '../context/ShopContext';
+import { ShopContextType } from '../types/types';
 
 export const Navbar: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
 
+  const { setShowSearch } = useContext(ShopContext) as ShopContextType;
+
   const onClickHandler = () => {
     setVisible((prevValue) => !prevValue);
   };
+
+  const onClickImageHandler = () => {
+    setShowSearch(true);
+  }
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -37,6 +45,7 @@ export const Navbar: React.FC = () => {
           src={assets.search_icon}
           alt="search-icon"
           className="w-5 cursor-pointer"
+          onClick={onClickImageHandler}
         />
         <div className="group relative">
           <img

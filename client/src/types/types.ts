@@ -2,6 +2,10 @@ export interface ShopContextType {
   products: IProduct[];
   currency: string;
   delivery_fee: number;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  showSearch: boolean;
+  setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IProduct {

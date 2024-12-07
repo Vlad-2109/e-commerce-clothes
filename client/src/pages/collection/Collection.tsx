@@ -60,7 +60,6 @@ export const Collection: React.FC = () => {
         applyFilter();
         break;
     }
-
   }
 
   useEffect(() => {
