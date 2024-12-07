@@ -7,7 +7,7 @@ import { IProduct, ShopContextType } from '../../types/types';
 
 export const Collection: React.FC = () => {
 
-  const { products } = useContext(ShopContext) as ShopContextType;
+  const { products, search, showSearch } = useContext(ShopContext) as ShopContextType;
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [filterProducts, setFilterProducts] = useState<IProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -33,6 +33,10 @@ export const Collection: React.FC = () => {
   const applyFilter = () => {
 
     let productsCopy = products.slice();
+
+    if (showSearch && search) {
+      productsCopy = productsCopy.filter(product => product.name.toLowerCase().includes(search.toLowerCase()))
+    }
 
     if (categories.length > 0) {
       productsCopy = productsCopy.filter(product => categories.includes(product.category))
@@ -64,7 +68,7 @@ export const Collection: React.FC = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [categories, subCategories]);
+  }, [categories, subCategories, search, showSearch]);
 
   useEffect(() => {
     sortProduct();
