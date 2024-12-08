@@ -1,11 +1,11 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { products } from '../assets/frontend_assets/assets';
 import { ICartItems, ShopContextType } from '../types/types';
 import { toast } from 'react-toastify';
 
 export const ShopContext = createContext<ShopContextType | null>(null);
 
-const ShopContextProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const currency = '$';
   const delivery_fee = 10;
   const [search, setSearch] = useState<string>('');
@@ -13,14 +13,13 @@ const ShopContextProvider: React.FC<{children: React.ReactNode}> = ({ children }
   const [cartItems, setCartItems] = useState<ICartItems>({});
 
   const addToCart = async (itemId: string, size: string) => {
-
     if (!size) {
       toast.error('Select Product Size');
       return;
     }
 
     const cartData = structuredClone(cartItems);
-    
+
     if (cartData[itemId]) {
       if (cartData[itemId][size]) {
         cartData[itemId][size] += 1;
@@ -32,11 +31,20 @@ const ShopContextProvider: React.FC<{children: React.ReactNode}> = ({ children }
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
-  }
+  };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  const getCartCount = () => {
+    let totalCount = 0;
+
+    for (const items in cartItems) {
+      for (const item in cartItems[items]) {
+        if (cartItems[items][item] > 0) {
+          totalCount += cartItems[items][item];
+        }
+      }
+    }
+    return totalCount;
+  };
 
   const value = {
     products,
@@ -47,7 +55,8 @@ const ShopContextProvider: React.FC<{children: React.ReactNode}> = ({ children }
     showSearch,
     setShowSearch,
     cartItems,
-    addToCart
+    addToCart,
+    getCartCount,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

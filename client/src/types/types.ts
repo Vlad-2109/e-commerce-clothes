@@ -8,6 +8,7 @@ export interface ShopContextType {
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: ICartItems;
   addToCart: (itemId: string, size: string) => void;
+  getCartCount: () => number;
 }
 
 export interface ICartItems {
