@@ -9,12 +9,19 @@ export interface ShopContextType {
   cartItems: ICartItems;
   addToCart: (itemId: string, size: string) => void;
   getCartCount: () => number;
+  updateQuantity: (itemId: string, size: string, quantity: number) => void;
 }
 
 export interface ICartItems {
   [itemId: string]: {
     [size: string]: number;
   };
+}
+
+export interface ICartData {
+  _id: string;
+  size: string;
+  quantity: number;
 }
 
 export interface IProduct {

@@ -46,6 +46,15 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     return totalCount;
   };
 
+  const updateQuantity = async (itemId: string, size: string, quantity: number) => {
+    
+    const cartData = structuredClone(cartItems);
+
+    cartData[itemId][size] = quantity;
+
+    setCartItems(cartData);
+  }
+
   const value = {
     products,
     currency,
@@ -57,6 +66,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     cartItems,
     addToCart,
     getCartCount,
+    updateQuantity,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
