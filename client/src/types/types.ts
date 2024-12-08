@@ -32,3 +32,8 @@ export interface ProductItemProps {
   name: string;
   price: number;
 }
+
+export interface RelatedProductsProps {
+  category: string;
+  subCategory: string;
+}
