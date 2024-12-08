@@ -6,6 +6,14 @@ export interface ShopContextType {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   showSearch: boolean;
   setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  cartItems: ICartItems;
+  addToCart: (itemId: string, size: string) => void;
+}
+
+export interface ICartItems {
+  [itemId: string]: {
+    [size: string]: number;
+  };
 }
 
 export interface IProduct {

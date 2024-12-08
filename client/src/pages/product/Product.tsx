@@ -7,7 +7,7 @@ import { RelatedProducts } from '../../components/RelatedProducts';
 
 export const Product: React.FC = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext) as ShopContextType;
+  const { products, currency, addToCart } = useContext( ShopContext ) as ShopContextType;
   const [productData, setProductData] = useState<IProduct | null>(null);
   const [image, setImage] = useState<string>('');
   const [size, setSize] = useState<string>('');
@@ -32,6 +32,10 @@ export const Product: React.FC = () => {
 
   const onButtonClickHandler = (size: string) => {
     setSize(size);
+  };
+
+  const onButtonAddToCartHandler = (itemId: string, size: string) => {
+    addToCart(itemId, size);
   };
 
   return productData ? (
@@ -88,7 +92,10 @@ export const Product: React.FC = () => {
               ))}
             </div>
           </div>
-          <button className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+          <button
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            onClick={() => onButtonAddToCartHandler(productData._id, size)}
+          >
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5" />
