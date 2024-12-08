@@ -29,6 +29,14 @@ export const Cart: React.FC = () => {
     updateQuantity(itemId, size, quantity);
   };
 
+  const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>, itemId: string, itemSize: string) => {
+    if (e.target.value === '' || e.target.value === '0') {
+      return;
+    } else {
+      updateQuantity(itemId, itemSize, Number(e.target.value))
+    }
+  };
+
   return (
     <div className="border-t pt-14">
       <div className="text-2xl mb-3">
@@ -68,6 +76,7 @@ export const Cart: React.FC = () => {
                 min={1}
                 defaultValue={item.quantity}
                 className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                onChange={(e) => onChangeInputHandler(e, item._id, item.size)}
               />
               <img
                 src={assets.bin_icon}
