@@ -80,7 +80,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     addToCart,
     getCartCount,
     updateQuantity,
-    getCartAmount
+    getCartAmount,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
