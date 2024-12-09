@@ -55,6 +55,19 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     setCartItems(cartData);
   }
 
+  const getCartAmount = () => {
+    let totalAmount = 0;
+    for (const items in cartItems){
+      const itemInfo = products.find((product) => product._id === items);
+      for (const item in cartItems[items]){
+        if (cartItems[items][item] > 0) {
+          totalAmount += itemInfo!.price * cartItems[items][item];
+        }
+      }
+    }
+    return totalAmount;
+  };
+
   const value = {
     products,
     currency,
@@ -67,6 +80,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     addToCart,
     getCartCount,
     updateQuantity,
+    getCartAmount
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

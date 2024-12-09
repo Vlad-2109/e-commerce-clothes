@@ -10,6 +10,7 @@ export interface ShopContextType {
   addToCart: (itemId: string, size: string) => void;
   getCartCount: () => number;
   updateQuantity: (itemId: string, size: string, quantity: number) => void;
+  getCartAmount: () => number;
 }
 
 export interface ICartItems {
