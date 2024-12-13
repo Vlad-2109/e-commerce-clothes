@@ -13,7 +13,7 @@ const createToken = (id: string) => {
   return jwt.sign({ id }, jwt_secret);
 };
 
-// Route for user login
+// Function for user login
 const loginUser = async (req: Request, res: Response | any) => {
   try {
     const { email, password } = req.body;
@@ -41,7 +41,7 @@ const loginUser = async (req: Request, res: Response | any) => {
   }
 };
 
-// Route for user registration
+// Function for user registration
 const registerUser = async (req: Request, res: Response | any) => {
   try {
     const { name, email, password } = req.body;
@@ -82,7 +82,7 @@ const registerUser = async (req: Request, res: Response | any) => {
   }
 };
 
-// Route for admin login
+// Function for admin login
 const adminLogin = async (req: Request, res: Response) => {};
 
 export { loginUser, registerUser, adminLogin };
