@@ -1,13 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { App } from './App.tsx';
 import './index.css';
+import AdminContextProvider from './context/AdminContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ToastContainer />
-    <App />
+    <AdminContextProvider>
+      <App />
+    </AdminContextProvider>
   </StrictMode>,
 );

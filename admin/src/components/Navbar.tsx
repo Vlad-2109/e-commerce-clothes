@@ -1,7 +1,12 @@
+import { useContext } from 'react';
 import { assets } from '../assets/admin_assets/assets';
-import { INavbarProps } from '../types/types';
+import { AdminContextType } from '../types/types';
+import { AdminContext } from '../context/AdminContext';
 
-export const Navbar: React.FC<INavbarProps> = ({ setToken }) => {
+export const Navbar: React.FC = () => {
+
+  const { setToken } = useContext(AdminContext) as AdminContextType;
+
   const onClickHandler = () => {
     setToken('');
   };

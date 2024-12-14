@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { ILoginData, ILoginProps } from '../types/types';
+import { useContext, useState } from 'react';
+import { AdminContextType, ILoginData} from '../types/types';
 import { AuthService } from '../services/auth.service';
 import { toast } from 'react-toastify';
+import { AdminContext } from '../context/AdminContext';
 
-export const Login: React.FC<ILoginProps> = ({ setToken }) => {
+export const Login: React.FC = () => {
+
+  const { setToken } = useContext(AdminContext) as AdminContextType;
+
   const [loginData, setLoginData] = useState<ILoginData>({
     email: '',
     password: '',

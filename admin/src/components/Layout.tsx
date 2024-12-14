@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import { Navbar } from './Navbar';
 import { Sidebar } from './Sidebar';
-import { useEffect, useState } from 'react';
 import { Login } from './Login';
-
-// export const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { AdminContext } from '../context/AdminContext';
+import { AdminContextType } from '../types/types';
 
 export const Layout: React.FC = () => {
-  const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
+
+  const { token } = useContext(AdminContext) as AdminContextType;
 
   useEffect(() => {
     localStorage.setItem('token', token);
@@ -16,10 +17,10 @@ export const Layout: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {token === '' ? (
-        <Login setToken={setToken} />
+        <Login/>
       ) : (
         <>
-          <Navbar setToken={setToken} />
+          <Navbar/>
           <hr />
           <div className="flex w-full">
             <Sidebar />

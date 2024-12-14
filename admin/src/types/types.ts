@@ -9,10 +9,7 @@ export interface ILoginDataResponse {
   message?: string;
 }
 
-export interface ILoginProps {
-  setToken: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export interface INavbarProps {
+export interface AdminContextType {
+  token: string;
   setToken: React.Dispatch<React.SetStateAction<string>>;
 }
