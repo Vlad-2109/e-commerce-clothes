@@ -15,6 +15,7 @@ export interface IProductDataResponse {
 }
 
 export interface AdminContextType {
+  currency: string;
   token: string;
   setToken: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -24,4 +25,23 @@ export interface IImages {
   image2: File | any;
   image3: File | any;
   image4: File | any;
+}
+
+export interface IGetProducts {
+  success: boolean;
+  products?: IGetProduct[];
+  message?: string;
+}
+export interface IGetProduct {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string[];
+  category: string;
+  subCategory: string;
+  sizes: string[];
+  bestseller: boolean;
+  date: Date;
+  __v: number;
 }
