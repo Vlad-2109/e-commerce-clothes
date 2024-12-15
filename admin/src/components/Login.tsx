@@ -19,7 +19,11 @@ export const Login: React.FC = () => {
       const response = await AuthService.login(loginData);
       if (response.success) {
           setToken(response.token!);
-          toast.success('Successfully logged in');
+        toast.success('Successfully logged in');
+        setLoginData({
+          email: '',
+          password: '',
+        });
       } else {
         toast.error(response.message);
       }
