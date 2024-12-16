@@ -70,7 +70,8 @@ export const Add: React.FC = () => {
       }
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message);
+      toast.error(error.response.data.message);
+
     }
   }
 

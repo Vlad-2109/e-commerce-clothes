@@ -8,11 +8,11 @@ export const ShopContext = createContext<ShopContextType | null>(null);
 const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const currency = '$';
   const delivery_fee = 10;
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState<string>('');
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<ICartItems>({});
   const [products, setProducts] = useState<IGetProduct[]>([]);
+  const [token, setToken] = useState<string>('');
 
   const addToCart = async (itemId: string, size: string) => {
     if (!size) {
@@ -80,7 +80,8 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
       }
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message);
+      toast.error(error.response.data.message);
+
     }
   }
 
@@ -101,7 +102,8 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     getCartCount,
     updateQuantity,
     getCartAmount,
-    backendUrl
+    token,
+    setToken
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

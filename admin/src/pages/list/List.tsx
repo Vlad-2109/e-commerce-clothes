@@ -21,7 +21,8 @@ export const List: React.FC = () => {
       }
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message);
+      toast.error(error.response.data.message);
+
     }
   };
 
@@ -36,7 +37,8 @@ export const List: React.FC = () => {
       }
     } catch (error: any) {
       console.error(error);
-      toast.error(error.message);
+      toast.error(error.response.data.message);
+
     }
   };
 

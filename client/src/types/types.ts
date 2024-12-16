@@ -11,7 +11,8 @@ export interface ShopContextType {
   getCartCount: () => number;
   updateQuantity: (itemId: string, size: string, quantity: number) => void;
   getCartAmount: () => number;
-  backendUrl: string;
+  token: string;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface ICartItems {
@@ -74,4 +75,27 @@ export interface IGetProduct {
   bestseller: boolean;
   date: number;
   __v: number;
+}
+
+export interface IRegisterData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface IRegisterDataResponse {
+  success: boolean;
+  token?: string;
+  message?: string;
+}
+
+export interface ILoginData {
+  email: string;
+  password: string;
+}
+
+export interface ILoginDataResponse {
+  success: boolean;
+  token?: string;
+  message?: string;
 }
