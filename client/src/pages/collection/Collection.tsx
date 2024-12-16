@@ -68,7 +68,7 @@ export const Collection: React.FC = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [categories, subCategories, search, showSearch]);
+  }, [categories, subCategories, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();

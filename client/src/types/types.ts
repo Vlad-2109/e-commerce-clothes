@@ -11,6 +11,7 @@ export interface ShopContextType {
   getCartCount: () => number;
   updateQuantity: (itemId: string, size: string, quantity: number) => void;
   getCartAmount: () => number;
+  backendUrl: string;
 }
 
 export interface ICartItems {
@@ -53,4 +54,24 @@ export interface ProductItemProps {
 export interface RelatedProductsProps {
   category: string;
   subCategory: string;
+}
+
+export interface IGetProducts {
+  success: boolean;
+  products?: IGetProduct[];
+  message?: string;
+}
+
+export interface IGetProduct {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string[];
+  category: string;
+  subCategory: string;
+  sizes: string[];
+  bestseller: boolean;
+  date: number;
+  __v: number;
 }

@@ -11,7 +11,7 @@ export const LatestCollection: React.FC = () => {
 
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
-  }, []);
+  }, [products]);
 
   return (
     <div className="my-10">

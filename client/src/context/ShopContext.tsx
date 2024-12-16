@@ -1,16 +1,18 @@
-import { createContext, useState } from 'react';
-import { products } from '../assets/frontend_assets/assets';
-import { ICartItems, ShopContextType } from '../types/types';
+import { createContext, useEffect, useState } from 'react';
+import { ICartItems, IGetProduct, ShopContextType } from '../types/types';
 import { toast } from 'react-toastify';
+import { ProductService } from '../services/product.service';
 
 export const ShopContext = createContext<ShopContextType | null>(null);
 
 const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const currency = '$';
   const delivery_fee = 10;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState<string>('');
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<ICartItems>({});
+  const [products, setProducts] = useState<IGetProduct[]>([]);
 
   const addToCart = async (itemId: string, size: string) => {
     if (!size) {
@@ -68,6 +70,24 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     return totalAmount;
   };
 
+  const getProductsData = async () => {
+    try {
+      const response = await ProductService.getProductsList();
+      if (response.success) {
+        setProducts(response.products!);
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    getProductsData();
+  }, []);
+
   const value = {
     products,
     currency,
@@ -81,6 +101,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     getCartCount,
     updateQuantity,
     getCartAmount,
+    backendUrl
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
