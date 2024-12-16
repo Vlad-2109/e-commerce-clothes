@@ -89,6 +89,12 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     getProductsData();
   }, []);
 
+  useEffect(() => {
+    if (!token && localStorage.getItem('token')) {
+      setToken(localStorage.getItem('token')!);
+    }
+  }, []);
+
   const value = {
     products,
     currency,
@@ -98,6 +104,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     showSearch,
     setShowSearch,
     cartItems,
+    setCartItems,
     addToCart,
     getCartCount,
     updateQuantity,

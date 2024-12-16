@@ -14,7 +14,7 @@ export const Login: React.FC = () => {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  const [currentState, setCurrentState] = useState<string>('Sign Up');
+  const [currentState, setCurrentState] = useState<string>('Login');
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
