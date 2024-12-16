@@ -100,3 +100,24 @@ export interface ILoginDataResponse {
   token?: string;
   message?: string;
 }
+
+export interface IAddItemData {
+  itemId: string;
+  size: string;
+}
+
+export interface IItemDataResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface IUpdateItemData {
+  itemId: string;
+  size: string;
+  quantity: number;
+}
+
+export interface IGetCartDataResponse {
+  success: boolean;
+  cartData: ICartItems;
+}

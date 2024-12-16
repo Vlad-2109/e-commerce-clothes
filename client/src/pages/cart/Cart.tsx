@@ -7,37 +7,49 @@ import { CartTotal } from '../../components/CartTotal';
 import { useNavigate } from 'react-router-dom';
 
 export const Cart: React.FC = () => {
-  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext) as ShopContextType;
+  const { products, currency, cartItems, updateQuantity } = useContext(
+    ShopContext,
+  ) as ShopContextType;
 
   const [cartData, setCartData] = useState<ICartData[]>([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const tempData = [];
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        if (cartItems[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItems[items][item],
-          });
+    if (products.length > 0) {
+      const tempData = [];
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            tempData.push({
+              _id: items,
+              size: item,
+              quantity: cartItems[items][item],
+            });
+          }
         }
       }
+      setCartData(tempData);
     }
-    setCartData(tempData);
-  }, [cartItems]);
+  }, [cartItems, products]);
 
-  const onImageClickUpdateHandler = (itemId: string, size: string, quantity: number) => {
+  const onImageClickUpdateHandler = (
+    itemId: string,
+    size: string,
+    quantity: number,
+  ) => {
     updateQuantity(itemId, size, quantity);
   };
 
-  const onChangeInputHandler = (e: React.ChangeEvent<HTMLInputElement>, itemId: string, itemSize: string) => {
+  const onChangeInputHandler = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    itemId: string,
+    itemSize: string,
+  ) => {
     if (e.target.value === '' || e.target.value === '0') {
       return;
     } else {
-      updateQuantity(itemId, itemSize, Number(e.target.value))
+      updateQuantity(itemId, itemSize, Number(e.target.value));
     }
   };
 
@@ -48,7 +60,9 @@ export const Cart: React.FC = () => {
       </div>
       <div>
         {cartData.map((item, index) => {
-          const productData = products.find(product => product._id === item._id);
+          const productData = products.find(
+            (product) => product._id === item._id,
+          );
           return (
             <div
               key={index}
@@ -99,7 +113,7 @@ export const Cart: React.FC = () => {
           <CartTotal />
           <div className="w-full text-end">
             <button
-              className='bg-black hover:bg-gray-900 text-white text-sm my-8 px-8 py-3'
+              className="bg-black hover:bg-gray-900 text-white text-sm my-8 px-8 py-3"
               onClick={() => navigate('/place-order')}
             >
               PROCEED TO CHECKOUT

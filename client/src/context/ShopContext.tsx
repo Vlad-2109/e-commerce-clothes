@@ -2,10 +2,13 @@ import { createContext, useEffect, useState } from 'react';
 import { ICartItems, IGetProduct, ShopContextType } from '../types/types';
 import { toast } from 'react-toastify';
 import { ProductService } from '../services/product.service';
+import { CartService } from '../services/cart.service';
 
 export const ShopContext = createContext<ShopContextType | null>(null);
 
-const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const currency = '$';
   const delivery_fee = 10;
   const [search, setSearch] = useState<string>('');
@@ -33,6 +36,16 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+
+    if (token) {
+      const itemData = { itemId, size };
+      try {
+        await CartService.addToCart(itemData, token);
+      } catch (error: any) {
+        console.error(error);
+        toast.error(error.response.data.message);
+      }
+    }
   };
 
   const getCartCount = () => {
@@ -48,20 +61,33 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     return totalCount;
   };
 
-  const updateQuantity = async (itemId: string, size: string, quantity: number) => {
-    
+  const updateQuantity = async (
+    itemId: string,
+    size: string,
+    quantity: number,
+  ) => {
     const cartData = structuredClone(cartItems);
 
     cartData[itemId][size] = quantity;
 
     setCartItems(cartData);
-  }
+
+    if (token) {
+      const itemData = { itemId, size, quantity };
+      try {
+        await CartService.updateCart(itemData, token);
+      } catch (error: any) {
+        console.error(error);
+        toast.error(error.response.data.message);
+      }
+    }
+  };
 
   const getCartAmount = () => {
     let totalAmount = 0;
-    for (const items in cartItems){
+    for (const items in cartItems) {
       const itemInfo = products.find((product) => product._id === items);
-      for (const item in cartItems[items]){
+      for (const item in cartItems[items]) {
         if (cartItems[items][item] > 0) {
           totalAmount += itemInfo!.price * cartItems[items][item];
         }
@@ -81,9 +107,20 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     } catch (error: any) {
       console.error(error);
       toast.error(error.response.data.message);
-
     }
-  }
+  };
+
+  const getUserCart = async (token: string) => {
+    try {
+      const response = await CartService.getCart(token);
+      if (response.success) {
+        setCartItems(response.cartData);
+      }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
     getProductsData();
@@ -92,6 +129,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
   useEffect(() => {
     if (!token && localStorage.getItem('token')) {
       setToken(localStorage.getItem('token')!);
+      getUserCart(localStorage.getItem('token')!);
     }
   }, []);
 
@@ -110,7 +148,7 @@ const ShopContextProvider: React.FC<{ children: React.ReactNode }> = ({children}
     updateQuantity,
     getCartAmount,
     token,
-    setToken
+    setToken,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

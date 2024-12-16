@@ -45,8 +45,6 @@ const addProduct = async (req: Request | any, res: Response | any) => {
       date: Date.now(),
     };
 
-    console.log(productData);
-
     const product = new ProductModel(productData);
     await product.save();
 
