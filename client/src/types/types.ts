@@ -121,3 +121,65 @@ export interface IGetCartDataResponse {
   success: boolean;
   cartData: ICartItems;
 }
+
+export interface IPlaceOrderData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  phone: string;
+}
+
+export interface IOrderData {
+  address: IPlaceOrderData;
+  items: IOrderItem[];
+  amount: string;
+}
+
+export interface IOrderItem {
+  bestseller: boolean;
+  category: string;
+  date: number;
+  description: string;
+  image: string[];
+  name: string;
+  price: number;
+  quantity: number;
+  size: string;
+  sizes: string[];
+  subCategory: string;
+  __v: number;
+  _id: string;
+}
+export interface IOrderDataResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface IUserOrder {
+  _id: string;
+  userId: string;
+  items: (IOrderItem & {
+    status: string;
+    payment: boolean;
+    paymentMethod: string;
+    date: number;
+  })[];
+  amount: number;
+  address: IPlaceOrderData;
+  status: string;
+  paymentMethod: string;
+  payment: boolean;
+  date: number;
+  __v: number;
+}
+
+export interface IGetUserOrdersResponse {
+  orders: IUserOrder[];
+  success?: boolean;
+  message?: string;
+}

@@ -6,6 +6,7 @@ import connectCloudinary from './config/cloudinary';
 import userRouter from './routes/userRoute';
 import productRouter from './routes/productRoute';
 import cartRouter from './routes/cartRoute';
+import orderRouter from './routes/orderRoute';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(cors({ credentials: true, origin: ['http://localhost:5173', 'http://loca
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/order', orderRouter);
 
 app.listen(port, () => {
   console.log('Server is running on port: ' + port);
