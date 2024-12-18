@@ -1,6 +1,17 @@
 import { Request, Response } from 'express';
 import OrderModel from '../models/orderModel';
 import UserModel from '../models/userModel';
+import Stripe from 'stripe';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+// Global variables
+const currency = 'usd';
+const deliveryCharge = 10;
+
+// Gateaway initialize
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 
 // Function for placing orders using COD Method
 const placeOrder = async (req: Request | any, res: Response | any) => {
@@ -32,7 +43,52 @@ const placeOrder = async (req: Request | any, res: Response | any) => {
 // Function for placing orders using Stripe Method
 const placeOrderStripe = async (req: Request | any, res: Response | any) => {
   try {
-    return res.json({ success: true, message: 'Cart Updated' });
+    const { userId, items, amount, address } = req.body;
+    const { origin } = req.headers;
+
+    const orderData = {
+      userId,
+      items,
+      amount,
+      address,
+      paymentMethod: 'Stripe',
+      payment: false,
+      date: Date.now(),
+    };
+
+    const newOrder = new OrderModel(orderData);
+    await newOrder.save();
+
+    const line_items = items.map((item: any) => ({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: item.name
+        },
+        unit_amount: item.price * 100
+      },
+      quantity: item.quantity
+    }));
+
+    line_items.push({
+      price_data: {
+        currency: currency,
+        product_data: {
+          name: 'Delivery Charges',
+        },
+        unit_amount: deliveryCharge * 100,
+      },
+      quantity: 1,
+    });
+
+    const session = await stripe.checkout.sessions.create({
+      success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+      cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+      line_items,
+      mode: 'payment',
+    });
+
+    return res.json({ success: true, session_url: session.url });
   } catch (error: any) {
     console.error(error);
     return res.json({ success: false, message: error.message });

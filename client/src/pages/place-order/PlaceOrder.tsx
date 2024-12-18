@@ -61,7 +61,24 @@ export const PlaceOrder: React.FC = () => {
       switch (method) {
         // API Calls for COD
         case 'cod': {
-          const response = await OrderService.placeOrder(orderData as any, token);
+          const response = await OrderService.placeOrder(
+            orderData as any,
+            token,
+          );
+          if (response.success) {
+            setCartItems({});
+            toast.success('Successfully Placed');
+            navigate('/orders');
+          } else {
+            toast.error(response.message);
+          }
+          break;
+        };
+        case 'stripe': {
+          const response = await OrderService.placeOrder(
+            orderData as any,
+            token,
+          );
           if (response.success) {
             setCartItems({});
             toast.success('Successfully Placed');
@@ -71,7 +88,7 @@ export const PlaceOrder: React.FC = () => {
           }
           break;
         }
-        default: 
+        default:
           break;
       }
     } catch (error: any ) {
