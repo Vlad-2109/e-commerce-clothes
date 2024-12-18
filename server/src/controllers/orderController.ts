@@ -52,7 +52,9 @@ const placeOrderRazorpay = async (req: Request | any, res: Response | any) => {
 // Function for All Orders data for Admin Panel
 const allOrders = async (req: Request | any, res: Response | any) => {
   try {
-    // return res.json({ success: true, cartData });
+    const orders = await OrderModel.find({});
+
+    return res.json({ success: true, orders });
   } catch (error: any) {
     console.error(error);
     return res.json({ success: false, message: error.message });
@@ -75,7 +77,10 @@ const userOrders = async (req: Request | any, res: Response | any) => {
 // Function for Update Order Status from Admin Panel
 const updateStatus = async (req: Request | any, res: Response | any) => {
   try {
-    // return res.json({ success: true, cartData });
+    const { orderId, status } = req.body;
+    await OrderModel.findByIdAndUpdate(orderId, { status });
+
+    return res.json({ success: true, message: 'Status Updated' });
   } catch (error: any) {
     console.error(error);
     return res.json({ success: false, message: error.message });
