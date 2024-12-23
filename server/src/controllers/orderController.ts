@@ -115,16 +115,6 @@ const verifyStripe = async (req: Request | any, res: Response | any) => {
   }
 }
 
-// Function for placing orders using Razorpay Method
-const placeOrderRazorpay = async (req: Request | any, res: Response | any) => {
-  try {
-    // return res.json({ success: true, cartData });
-  } catch (error: any) {
-    console.error(error);
-    return res.json({ success: false, message: error.message });
-  }
-};
-
 // Function for All Orders data for Admin Panel
 const allOrders = async (req: Request | any, res: Response | any) => {
   try {
@@ -166,7 +156,6 @@ const updateStatus = async (req: Request | any, res: Response | any) => {
 export {
   placeOrder,
   placeOrderStripe,
-  placeOrderRazorpay,
   verifyStripe,
   allOrders,
   userOrders,
