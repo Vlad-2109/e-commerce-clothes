@@ -1,9 +1,29 @@
 import { instance } from '../api/axios.api';
-import {IGetUserOrdersResponse, IOrderData, IOrderDataResponse } from '../types/types';
+import {IGetUserOrdersResponse, IOrderData, IOrderDataResponse, IOrderStripeDataResponse, IVerifyStripeDataResponse } from '../types/types';
 
 export const OrderService = {
   async placeOrder( orderData: IOrderData, token: string ): Promise<IOrderDataResponse> {
     const { data } = await instance.post<IOrderDataResponse>('api/order/place', orderData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+      },
+    });
+    return data;
+  },
+
+  async placeOrderStripe( orderData: IOrderData, token: string ): Promise<IOrderStripeDataResponse> {
+    const { data } = await instance.post<IOrderStripeDataResponse>('api/order/stripe', orderData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': token,
+      },
+    });
+    return data;
+  },
+
+   async verifyStripe( orderId: string, success: string, token: string ): Promise<IVerifyStripeDataResponse> {
+    const { data } = await instance.post<IVerifyStripeDataResponse>('api/order/verify-stripe', {orderId, success}, {
       headers: {
         'Content-Type': 'application/json',
         'token': token,
@@ -20,23 +40,4 @@ export const OrderService = {
     });
     return data;
   },
-
-  // async updateCart(itemData: IUpdateItemData, token: string): Promise<IItemDataResponse> {
-  //   const { data } = await instance.post<IItemDataResponse>(`api/cart/update`, itemData, {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'token' : token
-  //     },
-  //   });
-  //   return data;
-  // },
-
-  // async getCart(token: string): Promise<IGetCartDataResponse> {
-  //   const { data } = await instance.get<IGetCartDataResponse>(`api/cart/get`, {
-  //     headers: {
-  //       'token': token
-  //     }
-  //   });
-  //   return data;
-  // },
 };

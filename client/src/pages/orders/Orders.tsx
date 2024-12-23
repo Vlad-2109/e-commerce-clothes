@@ -14,7 +14,6 @@ export const Orders: React.FC = () => {
     paymentMethod: string;
     date: number;
   })[]>([]);
-  console.log(orderData)
 
   const loadOrderData = async () => {
     try {

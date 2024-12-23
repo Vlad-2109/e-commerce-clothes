@@ -160,6 +160,17 @@ export interface IOrderDataResponse {
   message: string;
 }
 
+export interface IOrderStripeDataResponse {
+  success: boolean;
+  session_url?: string | URL;
+  message?: string;
+}
+
+export interface IVerifyStripeDataResponse {
+  success: boolean;
+  message?: string;
+}
+
 export interface IUserOrder {
   _id: string;
   userId: string;

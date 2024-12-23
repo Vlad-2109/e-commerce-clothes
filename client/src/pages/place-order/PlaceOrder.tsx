@@ -75,16 +75,12 @@ export const PlaceOrder: React.FC = () => {
           break;
         };
         case 'stripe': {
-          const response = await OrderService.placeOrder(
-            orderData as any,
-            token,
-          );
-          if (response.success) {
-            setCartItems({});
-            toast.success('Successfully Placed');
-            navigate('/orders');
+          const responseStripe = await OrderService.placeOrderStripe(orderData as any, token);
+          if (responseStripe.success) {
+            const { session_url } = responseStripe;
+            window.location.replace(session_url!);
           } else {
-            toast.error(response.message);
+            toast.error(responseStripe.message);
           }
           break;
         }

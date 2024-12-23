@@ -9,6 +9,7 @@ import { Login } from '../pages/login/Login';
 import { PlaceOrder } from '../pages/place-order/PlaceOrder';
 import { Orders } from '../pages/orders/Orders';
 import { Layout } from '../components/Layout';
+import { Verify } from '../pages/verify/Verify';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'place-order', element: <PlaceOrder /> },
       { path: 'orders', element: <Orders /> },
+      { path: 'verify', element: <Verify /> },
     ],
   },
 ]);
