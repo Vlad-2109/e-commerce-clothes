@@ -18,7 +18,17 @@ connectCloudinary();
 
 // Middlewares
 app.use(express.json());
-app.use(cors({ credentials: true, origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'https://e-commerce-clothesclient.vercel.app/',
+      'https://e-commerce-clothesadmin.vercel.app/',
+    ],
+  }),
+);
 
 // API endpoints
 app.use('/api/user', userRouter);
