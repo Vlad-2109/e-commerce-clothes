@@ -24,8 +24,8 @@ app.use(
     origin: [
       'http://localhost:5173',
       'http://localhost:5174',
-      'https://e-commerce-clothesclient.vercel.app/',
-      'https://e-commerce-clothesadmin.vercel.app/',
+      'https://e-commerce-clothesclient.vercel.app',
+      'https://e-commerce-clothesadmin.vercel.app',
     ],
   }),
 );
