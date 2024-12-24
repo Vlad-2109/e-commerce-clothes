@@ -17,7 +17,7 @@ export const Orders: React.FC = () => {
     try {
       const response = await OrderService.getOrders(token);
       if (response.success) {
-        setOrders(response.orders!);
+        setOrders(response.orders!.reverse());
       } else {
         toast.error(response.message);
       }
