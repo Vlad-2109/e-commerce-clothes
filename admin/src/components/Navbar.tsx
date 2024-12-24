@@ -2,13 +2,17 @@ import { useContext } from 'react';
 import { assets } from '../assets/admin_assets/assets';
 import { AdminContextType } from '../types/types';
 import { AdminContext } from '../context/AdminContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
+
+  const navigate = useNavigate();
 
   const { setToken } = useContext(AdminContext) as AdminContextType;
 
   const onClickHandler = () => {
     setToken('');
+    navigate('/');
   };
 
   return (
